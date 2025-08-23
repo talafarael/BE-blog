@@ -9,16 +9,19 @@ export class UsersService {
     private readonly prisma: PrismaService
   ) { }
 
-  async findOne(email: string): Promise<UserModel | undefined> {
+  async findOne(email: string): Promise<any | undefined> {
     const user = await this.prisma.user.findUnique({
       where: {
         email: email
-      }
+      },
+      include: {
+        posts: true
+      },
     })
     return user ?? undefined;
   }
-  async getMe(username: string): Promise<UserModel> {
-    const user = await this.findOne(username)
+  async getMe(email: string): Promise<UserModel> {
+    const user = await this.findOne(email)
     if (!user) {
       throw new Error('User not found');
     }

@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import dbConfig from './config/db.config';
 import jwtConfig from './config/jwt.config';
 import { PrismaService } from './prisma/prisma.service';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { PrismaService } from './prisma/prisma.service';
       load: [dbConfig, jwtConfig]
     }),
     AuthModule,
-    UsersModule
+    UsersModule,
+    PostModule
   ],
   controllers: [AppController],
   providers: [PrismaService],
